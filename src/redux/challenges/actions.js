@@ -8,9 +8,9 @@ export const fetchChallenges = () => ({
   type: CHALLENGES_FETCH,
 })
 
-export const fetchChallengesSuccess = (data) => ({
+export const fetchChallengesSuccess = (payload) => ({
   type: CHALLENGES_FETCH_SUCCESS,
-  payload: data,
+  payload,
 })
 
 export const fetchChallengesError = (error) => ({

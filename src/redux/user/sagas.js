@@ -17,7 +17,7 @@ function* actionWatcher() {
 }
 
 export default function* userSagas() {
-   yield all([
+  yield all([
     actionWatcher(),
-   ]);
+  ]);
 }
