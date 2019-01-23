@@ -15,8 +15,8 @@ class App extends Component {
           <Menu />
           <Switch>
             <Route path="/" exact component={Home} />
-            <Route path="/:lng(en|fr)?/challenges" component={Challenges} />
-            <Route path="/:lng(en|fr)?/articles" component={Articles} />
+            <Route path="/challenges" component={Challenges} />
+            <Route path="/articles" component={Articles} />
             <Route component={NotFound}/>
           </Switch>
         </React.Fragment>
