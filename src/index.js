@@ -3,6 +3,9 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import { createStore, compose, applyMiddleware } from 'redux';
+import { BrowserRouter } from "react-router-dom";
+
+
 import { addLocaleData } from "react-intl";
 import locale_en from 'react-intl/locale-data/en';
 import locale_de from 'react-intl/locale-data/de';
@@ -18,7 +21,6 @@ import rootSaga from './redux/rootSaga';
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
-const language = navigator.language.split(/[-_]/)[0];
 
 const store = createStore(
   reducer,
@@ -32,7 +34,9 @@ sagaMiddleware.run(rootSaga);
 
 render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root'),
 );

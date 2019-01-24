@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, NavLink } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { IntlProvider } from "react-intl";
+import { withRouter } from "react-router";
 
 import Challenge from './views/Challenge';
 import Home from './views/Home';
 import Menu from './components/Menu';
 import NotFound from './components/NotFound';
+import LanguageSwitcher from './components/LanguageSwitcher';
 
 import messages_fr from "./translations/fr.json";
 import messages_en from "./translations/en.json";
@@ -15,7 +17,6 @@ import locale_fr from 'react-intl/locale-data/fr';
 import { injectIntl } from 'react-intl'
 
 addLocaleData([...locale_en, ...locale_fr]);
-const language = navigator.language.split(/[-_]/)[0];  // language without region code
 
 class App extends Component {
 
@@ -24,8 +25,8 @@ class App extends Component {
   };
 
   render() {
-    console.log('this.state', this.state);
-    console.log('this.props', this.props);
+    console.log('this.state in app', this.state);
+    console.log('this.props in app', this.props);
     const { language } = this.state;
 
     const messages = {
@@ -35,19 +36,18 @@ class App extends Component {
 
     return (
       <IntlProvider locale={language} messages={messages[language]}>
-        <Router>
-          <React.Fragment>
-            <Menu />
-            <Switch>
-              <Route path="/:lang(fr|en)?" exact component={Home} />
-              <Route path="/:lang(fr|en)?/challenges" component={Challenge} />
-              <Route path="*" component={NotFound}/>
-            </Switch>
-          </React.Fragment>
-        </Router>
+        <React.Fragment>
+          <Menu />
+          <LanguageSwitcher />
+          <Switch>
+            <Route path="/:lang(fr|en)?" exact component={Home} />
+            <Route path="/:lang(fr|en)?/challenges" component={Challenge} />
+            <Route component={NotFound}/>
+          </Switch>
+        </React.Fragment>
       </IntlProvider>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
